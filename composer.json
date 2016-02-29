@@ -1,0 +1,24 @@
+{
+    "name": "wwtg99/structure-files",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wentao Wu",
+            "email": "wwtg99@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpexcel": "~1.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.2"
+    },
+    "autoload": {
+        "psr-4": {"StructureFile\\": "structure_files"}
+    },
+    "repositories": [
+        {"type": "composer", "url": "http://packagist.phpcomposer.com"},
+        {"packagist": false}
+    ]
+}
