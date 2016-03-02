@@ -33,7 +33,8 @@ class TestFile extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testSection() {
+    public function testSection()
+    {
         $name = 'name1';
         $data = [['f1'=>'v1', 'f2'=>'v2'], ['f1'=>'v3', 'f2'=>'v4']];
         $head = [['title'=>'t1', 'field'=>'f1', 'type'=>'string'], ['title'=>'t2', 'field'=>'f2', 'type'=>'int']];
@@ -68,7 +69,8 @@ class TestFile extends PHPUnit_Framework_TestCase {
         $this->assertEquals($s->getData(), $data);
     }
 
-    public function testSectionFile() {
+    public function testSectionFile()
+    {
         $name1 = 'name1';
         $data1 = ['f1'=>'v1', 'f2'=>'v2'];
         $head1 = [];
@@ -96,7 +98,8 @@ class TestFile extends PHPUnit_Framework_TestCase {
         $this->assertEquals(null, $sf1->getSectionByName('no'));
     }
 
-    public function testTxtFile() {
+    public function testTxtFile()
+    {
         $name1 = 'name1';
         $data1 = ['f1'=>'v1', 'f2'=>'v2'];
         $head1 = [];
@@ -135,7 +138,8 @@ class TestFile extends PHPUnit_Framework_TestCase {
         $this->assertEquals($txt2->getContent(), $txt1->getContent());
     }
 
-    public function testExcelFile() {
+    public function testExcelFile()
+    {
         $data1 = ['f1'=>'v1', 'f2'=>'v2'];
         $head1 = [['title'=>'t1', 'field'=>'f1'], ['title'=>'f2', 'field'=>'f2']];
 
