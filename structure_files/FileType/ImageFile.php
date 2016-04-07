@@ -12,15 +12,14 @@ namespace StructureFile\FileType;
 class ImageFile extends CommonFile {
 
     /**
+     * ImageFile constructor.
      * @param string $path
+     * @param string $content
+     * @param string $ext
      */
-    function __construct($path = '')
+    function __construct($path = '', $content = '', $ext = '')
     {
-        if ($path) {
-            $this->ext = self::formatExtension(strtolower(pathinfo($path, PATHINFO_EXTENSION)));
-            $this->mime = self::getMimeFromExtension($this->ext);
-            $this->path = $path;
-        }
+        parent::__construct($path, $content, $ext, self::getMimeFromExtension($ext));
     }
 
     /**

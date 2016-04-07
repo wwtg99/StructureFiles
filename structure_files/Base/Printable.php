@@ -14,7 +14,8 @@ interface Printable {
     /**
      * Print file in web browser.
      *
+     * @param string $filename
      * @return void
      */
-    public function printContent();
+    public function printContent($filename = '');
 }

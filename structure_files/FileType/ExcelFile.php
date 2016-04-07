@@ -22,6 +22,11 @@ class ExcelFile extends AbstractFile implements Downloadable {
     private $excel;
 
     /**
+     * @var string
+     */
+    private $writeType = 'Excel2007'; //CSV, Excel2007, Excel5, HTML, OpenDocument, PDF, PDF_DomPDF, PDF_mPDF, PDF_tcPDF
+
+    /**
      * @param string $filename
      * @return mixed
      */
@@ -39,7 +44,7 @@ class ExcelFile extends AbstractFile implements Downloadable {
         }
         self::printHeader();
         header("Content-Disposition: attachment;filename='$filename'");
-        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, "Excel2007");
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, $this->writeType);
         $objWriter->save('php://output');
     }
 
@@ -49,22 +54,20 @@ class ExcelFile extends AbstractFile implements Downloadable {
      */
     public function writeTo($path)
     {
-        if ($this->content) {
-            file_put_contents($path, $this->content);
-        } elseif ($this->path && $path != $this->path) {
-            copy($this->path, $path);
-        }
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, $this->writeType);
+        $objWriter->save($path);
     }
 
     /**
      * ExcelFile constructor.
-     * @param $path
+     * @param string $path
+     * @param string $ext
      */
-    function __construct($path)
+    function __construct($path, $ext = 'xlsx')
     {
         if (file_exists($path)) {
             $this->excel = \PHPExcel_IOFactory::load($path);
-            $this->ext = 'xlsx';
+            $this->ext = $ext;
             $this->mime = self::getMimeFromExtension($this->ext);
         }
     }
@@ -75,6 +78,45 @@ class ExcelFile extends AbstractFile implements Downloadable {
     public function getData()
     {
         return $this->excel;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArray()
+    {
+        $data = [];
+        $sheet = $this->excel->getActiveSheet();
+        $hrow = $sheet->getHighestRow();
+        $hcol = $sheet->getHighestColumn();
+        $hcoli = \PHPExcel_Cell::columnIndexFromString($hcol);
+        for ($r = 1; $r <= $hrow; $r++) {
+            $dr = [];
+            for ($c = 0; $c <= $hcoli; $c++) {
+                $d = $sheet->getCellByColumnAndRow($c, $r)->getValue();
+                array_push($dr, $d);
+            }
+            array_push($data, $dr);
+        }
+        return $data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWriteType()
+    {
+        return $this->writeType;
+    }
+
+    /**
+     * @param string $writeType
+     * @return $this
+     */
+    public function setWriteType($writeType)
+    {
+        $this->writeType = $writeType;
+        return $this;
     }
 
     /**
@@ -149,11 +191,13 @@ class ExcelFile extends AbstractFile implements Downloadable {
     }
 
     /**
+     * Get PHPExcel from array.
+     *
      * @param array $data
      * @return \PHPExcel
      * @throws \PHPExcel_Exception
      */
-    private static function getExcel($data)
+    private static function getExcel(array $data)
     {
         $excel = new \PHPExcel();
         $row = 1;

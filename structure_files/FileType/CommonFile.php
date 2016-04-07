@@ -90,17 +90,24 @@ class CommonFile extends AbstractFile implements Printable, Downloadable {
     /**
      * Print file in web browser.
      *
+     * @param string $filename
      * @return void
      */
-    public function printContent()
+    public function printContent($filename = '')
     {
         if ($this->content) {
             $this->printHeader();
+            if ($filename) {
+                header("Content-Disposition: inline; filename=\"" . $filename . "\";");
+            }
             ob_clean();
             echo $this->content;
         } elseif ($this->path) {
             $fsize = filesize($this->path);
             $this->printHeader($fsize);
+            if ($filename) {
+                header("Content-Disposition: inline; filename=\"" . $filename . "\";");
+            }
             ob_clean();
             readfile($this->path);
         }

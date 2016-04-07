@@ -10,6 +10,7 @@ class TestFile extends PHPUnit_Framework_TestCase {
 
     public static function setUpBeforeClass()
     {
+        date_default_timezone_set('Asia/Shanghai');
         require '../structure_files/Base/Downloadable.php';
         require '../structure_files/Base/Printable.php';
         require '../structure_files/Base/AbstractFile.php';
@@ -154,8 +155,14 @@ class TestFile extends PHPUnit_Framework_TestCase {
         );
         $sf1 = new \StructureFile\SectionFile\SectionFile([$s1, $s2]);
         $excel1 = \StructureFile\FileType\ExcelFile::createFromSection($sf1);
-        $excel2 = new \StructureFile\FileType\ExcelFile('download.xlsx');
         $excel1->writeTo('out.xlsx');
+        $data3 = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']];
+        $data4 = [['a', 'b', 'c', ''], ['d', 'e', 'f', ''], ['g', 'h', 'i', '']];
+        $excel2 = \StructureFile\FileType\ExcelFile::createFromData($data3);
+        $excel2->writeTo('out2.xlsx');
+        $excel3 = new \StructureFile\FileType\ExcelFile('out2.xlsx');
+        $arr = $excel3->getArray();
+        $this->assertEquals($data4, $arr);
     }
 }
  

@@ -62,6 +62,20 @@ abstract class AbstractFile {
     }
 
     /**
+     * @return int
+     */
+    public function getSize()
+    {
+        if ($this->path)
+        {
+            return filesize($this->path);
+        } elseif ($this->content) {
+            return mb_strlen($this->content);
+        }
+        return 0;
+    }
+
+    /**
      * @param string $ext
      * @return string
      */
@@ -137,7 +151,7 @@ abstract class AbstractFile {
      */
     protected function printHeader($fsize = 0)
     {
-        header("Pragma: public");
+        header("Pragma: no-cache");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: private", false);
