@@ -348,6 +348,8 @@ class ExcelFile extends AbstractFile implements Downloadable {
                         } else {
                             array_push($line, $d[$hf]);
                         }
+                    } else {
+                        array_push($line, $section->getNull());
                     }
                 }
             } else {

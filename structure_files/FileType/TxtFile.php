@@ -29,7 +29,7 @@ class TxtFile extends CommonFile {
      * @param string $extension
      * @return TxtFile
      */
-    public static function createFromSection(SectionFile $sectionFile, $extension = '.tsv')
+    public static function createFromSection(SectionFile $sectionFile, $extension = 'tsv')
     {
         $cont = [];
         //handle data
@@ -210,6 +210,8 @@ class TxtFile extends CommonFile {
                         } else {
                             array_push($line, $d[$hf]);
                         }
+                    } else {
+                        array_push($line, $section->getNull());
                     }
                 }
             } else {
