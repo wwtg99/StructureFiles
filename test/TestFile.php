@@ -34,6 +34,28 @@ class TestFile extends PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testFormatFilename()
+    {
+        $f = new \StructureFile\FileType\CommonFile('', 'aa', 'txt');
+        $tests = ['file1'=>'file1.txt', 'file2.csv'=>'file2.csv', ''=>'download.txt'];
+        foreach ($tests as $test => $exp) {
+            $cf = $f->formatFilename($test);
+            $this->assertEquals($exp, $cf);
+        }
+        $f2 = new \StructureFile\FileType\CommonFile();
+        $tests = ['file1'=>'file1', 'file2.csv'=>'file2.csv', ''=>'download'];
+        foreach ($tests as $test => $exp) {
+            $cf = $f2->formatFilename($test);
+            $this->assertEquals($exp, $cf);
+        }
+        $f3 = new \StructureFile\FileType\CommonFile('out.xlsx');
+        $tests = ['file1'=>'file1.xlsx', 'file2.csv'=>'file2.csv', ''=>'out.xlsx'];
+        foreach ($tests as $test => $exp) {
+            $cf = $f3->formatFilename($test);
+            $this->assertEquals($exp, $cf);
+        }
+    }
+
     public function testSection()
     {
         $name = 'name1';

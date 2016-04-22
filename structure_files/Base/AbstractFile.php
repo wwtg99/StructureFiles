@@ -76,6 +76,25 @@ abstract class AbstractFile {
     }
 
     /**
+     * @param string $filename
+     * @return string
+     */
+    public function formatFilename($filename)
+    {
+        if (!$filename) {
+            $filename = basename($this->path);
+        } else {
+            if (strrpos($filename, '.') === false) {
+                $filename .= ($this->ext ? '.' . $this->ext : '');
+            }
+        }
+        if (!$filename) {
+            $filename = 'download' . ($this->ext ? '.' . $this->ext : '');
+        }
+        return $filename;
+    }
+
+    /**
      * @param string $ext
      * @return string
      */

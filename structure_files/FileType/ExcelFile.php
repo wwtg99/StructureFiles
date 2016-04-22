@@ -32,16 +32,7 @@ class ExcelFile extends AbstractFile implements Downloadable {
      */
     public function download($filename = '')
     {
-        if (!$filename) {
-            $filename = basename($this->path);
-        } else {
-            if (strrpos($filename, '.') === false) {
-                $filename .= $this->ext;
-            }
-        }
-        if (!$filename) {
-            $filename = 'download' . $this->ext;
-        }
+        $filename = $this->formatFilename($filename);
         self::printHeader();
         header("Content-Disposition: attachment;filename='$filename'");
         $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, $this->writeType);

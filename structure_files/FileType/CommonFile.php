@@ -63,16 +63,7 @@ class CommonFile extends AbstractFile implements Printable, Downloadable {
      */
     public function download($filename = '')
     {
-        if (!$filename) {
-            $filename = basename($this->path);
-        } else {
-            if (strrpos($filename, '.') === false) {
-                $filename .= $this->ext;
-            }
-        }
-        if (!$filename) {
-            $filename = 'download' . $this->ext;
-        }
+        $filename = $this->formatFilename($filename);
         if ($this->content) {
             $this->printHeader();
             header("Content-Disposition: attachment; filename=\"" . $filename . "\";" );
@@ -95,6 +86,7 @@ class CommonFile extends AbstractFile implements Printable, Downloadable {
      */
     public function printContent($filename = '')
     {
+        $filename = $this->formatFilename($filename);
         if ($this->content) {
             $this->printHeader();
             if ($filename) {
