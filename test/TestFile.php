@@ -20,10 +20,11 @@ class TestFile extends PHPUnit_Framework_TestCase {
         require '../structure_files/FileType/TxtFile.php';
         require '../structure_files/FileType/ImageFile.php';
         require '../structure_files/FileType/ExcelFile.php';
+        require '../structure_files/Utils/FileHelper.php';
         require '../vendor/autoload.php';
     }
 
-    public function testSec()
+    public function testSectionName()
     {
         $sec1 = new \Wwtg99\StructureFile\SectionFile\Section(\Wwtg99\StructureFile\SectionFile\Section::KV_SECTION, 's1', ['aa', 'bb']);
         $sec2 = new \Wwtg99\StructureFile\SectionFile\Section(\Wwtg99\StructureFile\SectionFile\Section::RAW_SECTION, 's2', ['cc', 'dd']);
@@ -185,6 +186,36 @@ class TestFile extends PHPUnit_Framework_TestCase {
         $excel3 = new \Wwtg99\StructureFile\FileType\ExcelFile('out2.xlsx');
         $arr = $excel3->getArray();
         $this->assertEquals($data4, $arr);
+    }
+
+    public function testImageFile()
+    {
+        $img = ['jpg'=>true, 'png'=>true, 'gif'=>true, 'bmp'=>true, 'tif'=>true, 'txt'=>false, 'pdf'=>false, 'xls'=>false];
+        foreach ($img as $ext => $exp) {
+            $this->assertEquals($exp, \Wwtg99\StructureFile\FileType\ImageFile::isImage(\Wwtg99\StructureFile\Utils\FileHelper::getMimeFromExtension($ext)));
+        }
+    }
+
+    public function testFileHelper()
+    {
+        //formatPath
+        $d = DIRECTORY_SEPARATOR;
+        $path = [
+            ''=>'', $d=>$d, 'home'=>"home", "${d}home${d}"=>"${d}home", "${d}aa${d}bb${d}"=>"${d}aa${d}bb",
+            "aa${d}bb"=>"aa${d}bb", "aa${d}"=>"aa", "aa${d}bb${d}"=>"aa${d}bb"
+        ];
+        foreach ($path as $t => $exp) {
+            $this->assertEquals($exp, \Wwtg99\StructureFile\Utils\FileHelper::formatPath($t));
+        }
+        //joinPathArray
+        $joinPath = [
+            'aa'=>['aa'], "aa${d}bb"=>['aa', 'bb'], "${d}aa${d}bb"=>[$d, 'aa', 'bb'], "aa${d}cc"=>['aa', "cc${d}"],
+            "aa${d}dd"=>["aa${d}", "dd${d}"], "${d}aa${d}ee"=>[$d, "aa${d}", "ee${d}"], "${d}aa${d}ff"=>["${d}aa", 'ff'],
+            "aa${d}gg"=>['aa', '', 'gg', ' '], "aa${d}hh"=>['aa', $d, 'hh'], "${d}aa${d}ii"=>["${d}aa", ' ', "ii${d}"]
+        ];
+        foreach ($joinPath as $exp => $arr) {
+            $this->assertEquals($exp, \Wwtg99\StructureFile\Utils\FileHelper::joinPathArray($arr));
+        }
     }
 }
  

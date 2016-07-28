@@ -95,77 +95,6 @@ abstract class AbstractFile {
     }
 
     /**
-     * @param string $ext
-     * @return string
-     */
-    public static function getMimeFromExtension($ext)
-    {
-        $ext = self::formatExtension($ext);
-        switch ($ext) {
-            case "pdf": $ctype = "application/pdf"; break;
-            case "exe": $ctype = "application/octet-stream"; break;
-            case "zip": $ctype = "application/zip"; break;
-            case "doc": $ctype = "application/msword"; break;
-            case "docx": $ctype = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; break;
-            case "xls": $ctype = "application/vnd.ms-excel"; break;
-            case "xlsx": $ctype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; break;
-            case "ppt": $ctype = "application/vnd.ms-powerpoint"; break;
-            case "pptx": $ctype = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; break;
-            case "gif": $ctype = "image/gif"; break;
-            case "png": $ctype = "image/png"; break;
-            case "jpeg":
-            case "jpg": $ctype = "image/jpg"; break;
-            case "tif":
-            case "tiff": $ctype = "image/tiff"; break;
-            case "txt":
-            case "csv":
-            case "tsv": $ctype = "text/plain"; break;
-            case "xml": $ctype = "text/xml"; break;
-            case "html": $ctype = "text/html"; break;
-            default: $ctype = "application/force-download";
-        }
-        return $ctype;
-    }
-
-    /**
-     * @param string $mime
-     * @return string
-     */
-    public static function getExtensionFromMime($mime)
-    {
-        switch ($mime) {
-            case 'application/pdf': $ext = 'pdf'; break;
-            case 'application/zip': $ext = 'zip'; break;
-            case 'application/msword': $ext = 'doc'; break;
-            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': $ext = 'docx'; break;
-            case 'application/vnd.ms-excel': $ext = 'xls'; break;
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': $ext = 'xlsx'; break;
-            case 'application/vnd.ms-powerpoint': $ext = 'ppt'; break;
-            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': $ext = 'pptx'; break;
-            case 'image/gif': $ext = 'gif'; break;
-            case 'image/png': $ext = 'png'; break;
-            case 'image/jpg': $ext = 'jpg'; break;
-            case 'image/tiff': $ext = 'tiff'; break;
-            case 'text/xml': $ext = 'xml'; break;
-            case 'text/html': $ext = 'html'; break;
-            default: $ext = '';
-        }
-        return $ext;
-    }
-
-    /**
-     * Format extension without first dot.
-     *
-     * @param $extension
-     * @return mixed
-     */
-    public static function formatExtension($extension)
-    {
-        $extension = preg_replace('/[^\w\.]/', '', trim(trim($extension), '.'));
-        return $extension;
-    }
-
-    /**
      * @param int $fsize
      */
     protected function printHeader($fsize = 0)
@@ -180,5 +109,4 @@ abstract class AbstractFile {
             header("Content-Length: " . $fsize);
         }
     }
-
 }

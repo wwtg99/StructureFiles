@@ -9,6 +9,7 @@
 namespace Wwtg99\StructureFile\FileType;
 
 
+use Wwtg99\StructureFile\Utils\FileHelper;
 use Wwtg99\StructureFile\Base\AbstractFile;
 use Wwtg99\StructureFile\Base\Downloadable;
 use Wwtg99\StructureFile\SectionFile\Section;
@@ -59,7 +60,7 @@ class ExcelFile extends AbstractFile implements Downloadable {
         if (file_exists($path)) {
             $this->excel = \PHPExcel_IOFactory::load($path);
             $this->ext = $ext;
-            $this->mime = self::getMimeFromExtension($this->ext);
+            $this->mime = FileHelper::getMimeFromExtension($this->ext);
         }
     }
 
@@ -72,6 +73,8 @@ class ExcelFile extends AbstractFile implements Downloadable {
     }
 
     /**
+     * Get data in array.
+     *
      * @return array
      */
     public function getArray()

@@ -9,6 +9,8 @@
 namespace Wwtg99\StructureFile\FileType;
 
 
+use Wwtg99\StructureFile\Utils\FileHelper;
+
 class ImageFile extends CommonFile {
 
     /**
@@ -19,7 +21,7 @@ class ImageFile extends CommonFile {
      */
     function __construct($path = '', $content = '', $ext = '')
     {
-        parent::__construct($path, $content, $ext, self::getMimeFromExtension($ext));
+        parent::__construct($path, $content, $ext, FileHelper::getMimeFromExtension($ext));
     }
 
     /**
@@ -31,8 +33,8 @@ class ImageFile extends CommonFile {
     {
         $img = new ImageFile();
         $img->content = (string)$content;
-        $img->ext = self::formatExtension($extension);
-        $img->mime = self::getMimeFromExtension($img->getExtension());
+        $img->ext = FileHelper::formatExtension($extension);
+        $img->mime = FileHelper::getMimeFromExtension($img->getExtension());
         return $img;
     }
 
@@ -42,6 +44,11 @@ class ImageFile extends CommonFile {
      */
     public static function isImage($mime)
     {
-        return in_array($mime, ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/tiff']);
+        $s = strpos($mime, '/');
+        if ($s > 0) {
+            $pre = substr($mime, 0, $s);
+            return $pre == 'image';
+        }
+        return false;
     }
 } 

@@ -48,7 +48,15 @@ class Section {
      * postfix: string, default ''
      * del: string, default '\t'
      */
-    protected $rule;
+    protected $rules = [
+        'showHead'=>true,
+        'showName'=>true,
+        'null'=>'-',
+        'skip'=>[],
+        'prefix'=>'',
+        'postfix'=>'',
+        'del'=>"\t"
+    ];
 
     /**
      * @param int $type
@@ -57,13 +65,13 @@ class Section {
      * @param array $head
      * @param array $rule
      */
-    function __construct($type, $name, $data, $head = array(), $rule = array())
+    function __construct($type, $name, $data, $head = [], $rule = [])
     {
         $this->type = $type;
         $this->name = $name;
         $this->data = $data;
         $this->head = $head;
-        $this->rule = $rule;
+        $this->rules = array_merge($this->rules, $rule);
     }
 
     /**
@@ -123,14 +131,31 @@ class Section {
     }
 
     /**
+     * @return array
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param string $name
+     * @return mixed|null
+     */
+    public function getRule($name)
+    {
+        if (isset($this->rules[$name])) {
+            return $this->rules[$name];
+        }
+        return null;
+    }
+
+    /**
      * @return bool
      */
     public function getShowHead()
     {
-        if (array_key_exists('showHead', $this->rule)) {
-            return (bool)$this->rule['showHead'];
-        }
-        return true;
+        return $this->getRule('showHead');
     }
 
     /**
@@ -138,10 +163,7 @@ class Section {
      */
     public function getShowName()
     {
-        if (array_key_exists('showName', $this->rule)) {
-            return (bool)$this->rule['showName'];
-        }
-        return true;
+        return $this->getRule('showName');
     }
 
     /**
@@ -149,10 +171,7 @@ class Section {
      */
     public function getNull()
     {
-        if (array_key_exists('null', $this->rule)) {
-            return $this->rule['null'];
-        }
-        return '-';
+        return $this->getRule('null');
     }
 
     /**
@@ -160,10 +179,7 @@ class Section {
      */
     public function getSkip()
     {
-        if (array_key_exists('skip', $this->rule)) {
-            return $this->rule['skip'];
-        }
-        return [];
+        return $this->getRule('skip');
     }
 
     /**
@@ -171,10 +187,7 @@ class Section {
      */
     public function getPrefix()
     {
-        if (array_key_exists('prefix', $this->rule)) {
-            return $this->rule['prefix'];
-        }
-        return '';
+        return $this->getRule('prefix');
     }
 
     /**
@@ -182,10 +195,7 @@ class Section {
      */
     public function getPostfix()
     {
-        if (array_key_exists('postfix', $this->rule)) {
-            return $this->rule['postfix'];
-        }
-        return '';
+        return $this->getRule('postfix');
     }
 
     /**
@@ -193,10 +203,7 @@ class Section {
      */
     public function getDel()
     {
-        if (array_key_exists('del', $this->rule)) {
-            return $this->rule['del'];
-        }
-        return "\t";
+        return $this->getRule('del');
     }
 
     /**

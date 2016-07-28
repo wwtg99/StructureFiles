@@ -9,6 +9,7 @@
 namespace Wwtg99\StructureFile\FileType;
 
 
+use Wwtg99\StructureFile\Utils\FileHelper;
 use Wwtg99\StructureFile\Base\AbstractFile;
 use Wwtg99\StructureFile\Base\Downloadable;
 use Wwtg99\StructureFile\Base\Printable;
@@ -24,19 +25,19 @@ class CommonFile extends AbstractFile implements Printable, Downloadable {
     function __construct($path = '', $content = '', $ext = '', $mime = '')
     {
         if ($path) {
-            $this->ext = self::formatExtension(strtolower(pathinfo($path, PATHINFO_EXTENSION)));
-            $this->mime = self::getMimeFromExtension($this->ext);
+            $this->ext = FileHelper::formatExtension(strtolower(pathinfo($path, PATHINFO_EXTENSION)));
+            $this->mime = FileHelper::getMimeFromExtension($this->ext);
             $this->path = $path;
         } elseif ($content) {
             if ($ext && $mime) {
-                $this->ext = self::formatExtension($ext);
+                $this->ext = FileHelper::formatExtension($ext);
                 $this->mime = $mime;
             } elseif ($ext && !$mime) {
-                $this->ext = self::formatExtension($ext);
-                $this->mime = self::getMimeFromExtension($this->ext);
+                $this->ext = FileHelper::formatExtension($ext);
+                $this->mime = FileHelper::getMimeFromExtension($this->ext);
             } elseif (!$ext && $mime) {
                 $this->mime = $mime;
-                $this->ext = self::getExtensionFromMime($this->mime);
+                $this->ext = FileHelper::getExtensionFromMime($this->mime);
             }
             $this->content = $content;
         }

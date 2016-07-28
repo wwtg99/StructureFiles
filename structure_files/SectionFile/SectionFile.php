@@ -90,6 +90,8 @@ class SectionFile implements \Iterator{
     }
 
     /**
+     * Get section index by section name, -1 for not exists.
+     *
      * @param string $name
      * @return int
      */
@@ -106,6 +108,8 @@ class SectionFile implements \Iterator{
     }
 
     /**
+     * Get section by section name, null for not exists.
+     *
      * @param string $name
      * @return Section|null
      */

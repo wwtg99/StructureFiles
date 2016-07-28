@@ -9,6 +9,7 @@
 namespace Wwtg99\StructureFile\FileType;
 
 
+use Wwtg99\StructureFile\Utils\FileHelper;
 use Wwtg99\StructureFile\SectionFile\Section;
 use Wwtg99\StructureFile\SectionFile\SectionFile;
 
@@ -21,7 +22,7 @@ class TxtFile extends CommonFile {
      */
     function __construct($path, $content, $extension = 'txt')
     {
-        parent::__construct($path, $content, $extension, self::getMimeFromExtension('txt'));
+        parent::__construct($path, $content, $extension, FileHelper::getMimeFromExtension('txt'));
     }
 
     /**
