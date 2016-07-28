@@ -6,7 +6,7 @@
  * Time: 16:07
  */
 
-namespace StructureFile\SectionFile;
+namespace Wwtg99\StructureFile\SectionFile;
 
 
 class SectionFile implements \Iterator{

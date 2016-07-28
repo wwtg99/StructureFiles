@@ -6,11 +6,11 @@
  * Time: 16:38
  */
 
-namespace StructureFile\FileType;
+namespace Wwtg99\StructureFile\FileType;
 
 
-use StructureFile\SectionFile\Section;
-use StructureFile\SectionFile\SectionFile;
+use Wwtg99\StructureFile\SectionFile\Section;
+use Wwtg99\StructureFile\SectionFile\SectionFile;
 
 class TxtFile extends CommonFile {
 

@@ -6,7 +6,7 @@
  * Time: 15:42
  */
 
-namespace StructureFile\Base;
+namespace Wwtg99\StructureFile\Base;
 
 
 abstract class AbstractFile {

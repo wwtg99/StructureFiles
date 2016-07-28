@@ -6,12 +6,12 @@
  * Time: 16:41
  */
 
-namespace StructureFile\FileType;
+namespace Wwtg99\StructureFile\FileType;
 
 
-use StructureFile\Base\AbstractFile;
-use StructureFile\Base\Downloadable;
-use StructureFile\Base\Printable;
+use Wwtg99\StructureFile\Base\AbstractFile;
+use Wwtg99\StructureFile\Base\Downloadable;
+use Wwtg99\StructureFile\Base\Printable;
 
 class CommonFile extends AbstractFile implements Printable, Downloadable {
 

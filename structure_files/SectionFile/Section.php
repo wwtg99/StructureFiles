@@ -6,7 +6,7 @@
  * Time: 16:05
  */
 
-namespace StructureFile\SectionFile;
+namespace Wwtg99\StructureFile\SectionFile;
 
 
 class Section {

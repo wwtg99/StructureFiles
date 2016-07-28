@@ -6,7 +6,7 @@
  * Time: 16:54
  */
 
-namespace StructureFile\FileType;
+namespace Wwtg99\StructureFile\FileType;
 
 
 class ImageFile extends CommonFile {

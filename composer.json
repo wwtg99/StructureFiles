@@ -15,10 +15,15 @@
         "phpunit/phpunit": "~5.2"
     },
     "autoload": {
-        "psr-4": {"StructureFile\\": "structure_files"}
+        "psr-4": {"Wwtg99\\StructureFile\\": "structure_files"}
     },
     "repositories": [
-        {"type": "composer", "url": "http://packagist.phpcomposer.com"},
-        {"packagist": false}
+        {
+            "type": "composer",
+            "url": "http://packagist.phpcomposer.com"
+        },
+        {
+            "packagist": false
+        }
     ]
 }

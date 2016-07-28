@@ -6,7 +6,7 @@
  * Time: 15:40
  */
 
-namespace StructureFile\Base;
+namespace Wwtg99\StructureFile\Base;
 
 
 interface Downloadable {

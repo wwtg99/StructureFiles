@@ -6,7 +6,7 @@
  * Time: 15:41
  */
 
-namespace StructureFile\Base;
+namespace Wwtg99\StructureFile\Base;
 
 
 interface Printable {

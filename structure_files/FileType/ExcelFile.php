@@ -6,13 +6,13 @@
  * Time: 16:59
  */
 
-namespace StructureFile\FileType;
+namespace Wwtg99\StructureFile\FileType;
 
 
-use StructureFile\Base\AbstractFile;
-use StructureFile\Base\Downloadable;
-use StructureFile\SectionFile\Section;
-use StructureFile\SectionFile\SectionFile;
+use Wwtg99\StructureFile\Base\AbstractFile;
+use Wwtg99\StructureFile\Base\Downloadable;
+use Wwtg99\StructureFile\SectionFile\Section;
+use Wwtg99\StructureFile\SectionFile\SectionFile;
 
 class ExcelFile extends AbstractFile implements Downloadable {
 
